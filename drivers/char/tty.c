@@ -683,14 +683,14 @@ int tty_read(struct inode *i, struct fd *f, char *buffer, __size_t count)
 			}
 		} else {
 			if(tty->termios.c_cc[VTIME] > 0) {
-				unsigned int ini_ticks = kstat.ticks;
+				unsigned int ini_ticks = CURRENT_TICKS;
 				unsigned int timeout;
 
 				if(!tty->termios.c_cc[VMIN]) {
 					/* VTIME is measured in tenths of second */
 					timeout = tty->termios.c_cc[VTIME] * (HZ / 10);
 
-					while(kstat.ticks - ini_ticks < timeout && !tty->cooked_q.count) {
+					while(CURRENT_TICKS - ini_ticks < timeout && !tty->cooked_q.count) {
 						creq.fn = wait_vtime_off;
 						creq.arg = (unsigned int)&tty->cooked_q;
 						add_callout(&creq, timeout);

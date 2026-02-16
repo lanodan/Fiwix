@@ -409,7 +409,7 @@ int data_proc_stat(char *buffer, __pid_t pid)
 	unsigned int idle;
 	struct interrupt *irq;
 
-	idle = kstat.ticks - (kstat.cpu_user + kstat.cpu_nice + kstat.cpu_system);
+	idle = CURRENT_TICKS - (kstat.cpu_user + kstat.cpu_nice + kstat.cpu_system);
 	size = 0;
 	size += sprintk(buffer + size, "cpu %d %d %d %d\n", kstat.cpu_user, kstat.cpu_nice, kstat.cpu_system, idle);
 	size += sprintk(buffer + size, "disk 0 0 0 0\n");
@@ -437,7 +437,7 @@ int data_proc_uptime(char *buffer, __pid_t pid)
 	p = &proc_table[IDLE];
 	idle = tv2ticks(&p->usage.ru_utime);
 	idle += tv2ticks(&p->usage.ru_stime);
-	return sprintk(buffer, "%u.%02u %u.%02u\n", kstat.uptime, kstat.ticks % HZ, idle / HZ, idle % HZ);
+	return sprintk(buffer, "%u.%02u %u.%02u\n", kstat.uptime, CURRENT_TICKS % HZ, idle / HZ, idle % HZ);
 }
 
 int data_proc_fullversion(char *buffer, __pid_t pid)

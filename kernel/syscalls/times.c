@@ -33,5 +33,5 @@ int sys_times(struct tms *buf)
 		buf->tms_cstime = tv2ticks(&current->cusage.ru_stime);
 	}
 
-	return kstat.ticks;
+	return CURRENT_TICKS;
 }

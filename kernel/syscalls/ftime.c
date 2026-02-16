@@ -27,7 +27,7 @@ int sys_ftime(struct timeb *tp)
 		return errno;
 	}
 	tp->time = CURRENT_TIME;
-	tp->millitm = ((kstat.ticks % HZ) * 1000000) / HZ;
+	tp->millitm = ((CURRENT_TICKS % HZ) * 1000000) / HZ;
 	/* FIXME: 'timezone' and 'dstflag' fields are not used */
 
 	return 0;

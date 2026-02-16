@@ -28,7 +28,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz)
 			return errno;
 		}
 		tv->tv_sec = CURRENT_TIME;
-		tv->tv_usec = ((kstat.ticks % HZ) * 1000000) / HZ;
+		tv->tv_usec = ((CURRENT_TICKS % HZ) * 1000000) / HZ;
 		tv->tv_usec += gettimeoffset();
 	}
 	if(tz) {

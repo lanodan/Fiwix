@@ -177,7 +177,7 @@ void del_callout(struct callout_req *creq)
 
 void irq_timer(int num, struct sigcontext *sc)
 {
-	if((++kstat.ticks % HZ) == 0) {
+	if((++CURRENT_TICKS % HZ) == 0) {
 		CURRENT_TIME++;
 		kstat.uptime++;
 	}
