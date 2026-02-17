@@ -271,8 +271,7 @@ void do_page_fault(unsigned int trap, struct sigcontext *sc)
 		/* in kernel mode */
 		} else {
 			/*
-			 * If CONFIG_LAZY_USER_ADDR_CHECK is enabled, the
-			 * kernel may incur in a page fault when trying to
+			 * The kernel may incur in a page fault when trying to
 			 * access a possible user stack address. In that case,
 			 * sc->oldesp doesn't point to the user stack, but to
 			 * the kernel stack, because the page fault was raised

@@ -19,11 +19,6 @@
 
 static int verify_address(int type, const void *addr, unsigned int size)
 {
-#ifdef CONFIG_LAZY_USER_ADDR_CHECK
-	if(!addr) {
-		return -EFAULT;
-	}
-#else
 	struct vma *vma;
 	unsigned int start, gs;
 
@@ -78,8 +73,6 @@ static int verify_address(int type, const void *addr, unsigned int size)
 			return -EFAULT;
 		}
 	}
-#endif /* CONFIG_LAZY_USER_ADDR_CHECK */
-
 	return 0;
 }
 
