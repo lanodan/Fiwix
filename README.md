@@ -30,9 +30,7 @@ Features
  - Initial RAMdisk (initrd) image support.
  - SVGAlib based applications support.
  - PCI local bus support.
-   - QEMU PCI serial device support.
    - QEMU/Bochs Graphics Adapter support.
-   - Intel PIIX3 PCI ISA IDE controller.
  - UNIX98 pseudoterminals (pty) and devpts filesystem support.
  - Virtual consoles support (up to 12).
  - Keyboard driver with Linux keymaps support.

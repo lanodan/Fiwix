@@ -13,6 +13,7 @@
   'current' process stucture is completely setup.
 - Removed the file CREDITS because the LICENSE file already contains the list of
   contributors.
+- Removed the configuration option CONFIG_LAZY_USER_ADDR_CHECK.
 - Reimplemented atoi() to rely on strtol().
 - Fixed the ATA disk initialitzation to reduce the number of messages like
   'unexpected interrupt'.
