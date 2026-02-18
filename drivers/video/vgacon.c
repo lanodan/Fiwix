@@ -41,13 +41,10 @@ void vgacon_put_char(struct vconsole *vc, unsigned char ch)
 	ch = iso8859[ch];
 	screen = vc->screen;
 
-	if(!(vc->flags & CONSOLE_HAS_FOCUS)) {
-		screen[(vc->y * vc->columns) + vc->x] = vc->color_attr | ch;
-		return;
+	if(vc->flags & CONSOLE_HAS_FOCUS) {
+		vidmem = (short int *)vc->vidmem;
+		vidmem[(vc->y * vc->columns) + vc->x] = vc->color_attr | ch;
 	}
-
-	vidmem = (short int *)vc->vidmem;
-	vidmem[(vc->y * vc->columns) + vc->x] = vc->color_attr | ch;
 	screen[(vc->y * vc->columns) + vc->x] = vc->color_attr | ch;
 	vcbuf[(video.buf_y * vc->columns) + vc->x] = vc->color_attr | ch;
 }
@@ -57,7 +54,6 @@ void vgacon_insert_char(struct vconsole *vc)
 	int n, offset;
 	short int tmp, last_char, *vidmem, *screen;
 
-	vidmem = (short int *)vc->vidmem;
 	screen = vc->screen;
 	offset = (vc->y * vc->columns) + vc->x;
 	n = vc->x;
@@ -65,6 +61,7 @@ void vgacon_insert_char(struct vconsole *vc)
 
 	while(n++ < vc->columns) {
 		if(vc->flags & CONSOLE_HAS_FOCUS) {
+			vidmem = (short int *)vc->vidmem;
 			memcpy_w(&tmp, vidmem + offset, 1);
 			memset_w(vidmem + offset, last_char, 1);
 		}
@@ -80,12 +77,12 @@ void vgacon_delete_char(struct vconsole *vc)
 	int offset, count;
 	short int *vidmem, *screen;
 
-	vidmem = (short int *)vc->vidmem;
 	screen = vc->screen;
 	offset = (vc->y * vc->columns) + vc->x;
 	count = vc->columns - vc->x;
 
 	if(vc->flags & CONSOLE_HAS_FOCUS) {
+		vidmem = (short int *)vc->vidmem;
 		memcpy_w(vidmem + offset, vidmem + offset + 1, count);
 		memset_w(vidmem + offset + count, BLANK_MEM, 1);
 	}
@@ -148,14 +145,11 @@ void vgacon_write_screen(struct vconsole *vc, int from, int count, short int col
 {
 	short int *vidmem, *screen;
 
-	screen = vc->screen;
-	if(!(vc->flags & CONSOLE_HAS_FOCUS)) {
-		memset_w(screen + from, color, count);
-		return;
+	if(vc->flags & CONSOLE_HAS_FOCUS) {
+		vidmem = (short int *)vc->vidmem;
+		memset_w(vidmem + from, color, count);
 	}
-
-	vidmem = (short int *)vc->vidmem;
-	memset_w(vidmem + from, color, count);
+	screen = vc->screen;
 	memset_w(screen + from, color, count);
 }
 
