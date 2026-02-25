@@ -29,6 +29,7 @@ void wakeup(void *);
 void wakeup_proc(struct proc *);
 
 void lock_resource(struct resource *);
+int lock_resource_timeout(struct resource *, unsigned int);
 void unlock_resource(struct resource *);
 int can_lock_area(unsigned int);
 int unlock_area(unsigned int);

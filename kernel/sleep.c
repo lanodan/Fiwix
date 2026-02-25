@@ -2,6 +2,7 @@
  * fiwix/kernel/sleep.c
  *
  * Copyright 2018-2022, Jordi Sanfeliu. All rights reserved.
+ * Copyright 2025, Samuel Tyler. All rights reserved.
  * Distributed under the terms of the Fiwix License.
  */
 
@@ -206,6 +207,36 @@ void lock_resource(struct resource *resource)
 	}
 	resource->locked = 1;
 	RESTORE_FLAGS(flags);
+}
+
+/* returns whether timed out or not */
+int lock_resource_timeout(struct resource *resource, unsigned int timeout)
+{
+	unsigned int flags;
+
+	current->timeout = timeout;
+	for(;;) {
+		SAVE_FLAGS(flags); CLI();
+		if(resource->locked && current->timeout != 0) { /* locked, not timed out */
+			resource->wanted = 1;
+			RESTORE_FLAGS(flags);
+			sleep(resource, PROC_UNINTERRUPTIBLE);
+		} else if(current->timeout == 0) { /* timed out */
+			resource->wanted = 0;
+			/* ensure wanted is set back to 1 if anything else is waiting for it */
+			wakeup(resource);
+			RESTORE_FLAGS(flags);
+			/* failed to acquire the lock in the timeout */
+			return 1;
+		} else { /* not locked, not timed out */
+			/* able to go forth and acquire the lock */
+			break;
+		}
+	}
+	resource->locked = 1;
+	RESTORE_FLAGS(flags);
+
+	return 0;
 }
 
 void unlock_resource(struct resource *resource)
