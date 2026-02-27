@@ -184,6 +184,7 @@ int get_unused_pid(void);
 struct proc *get_proc_by_pid(__pid_t);
 
 struct proc *kernel_process(const char *, int (*fn)(void));
+struct proc *kernel_process_arg(const char *, int (*fn)(void *), void *);
 void proc_slot_init(struct proc *);
 void proc_init(void);
 
