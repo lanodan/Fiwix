@@ -8,9 +8,12 @@
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 OBJS = domains.o socket.o packet.o core.o unix.o ipv4.o
+DIRS = lwip/src
 
 all:	$(OBJS)
+	@for n in $(DIRS) ; do (cd $$n ; $(MAKE)) ; done
 
 clean:
+	@for n in $(DIRS) ; do (cd $$n ; $(MAKE) clean) ; done
 	rm -f *.o
 

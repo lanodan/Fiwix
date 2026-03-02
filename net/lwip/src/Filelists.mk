@@ -133,7 +133,8 @@ LWIPNOAPPSFILES=$(COREFILES) \
 	$(APIFILES) \
 	$(NETIFFILES) \
 	$(PPPFILES) \
-	$(SIXLOWPAN)
+	$(SIXLOWPAN) \
+	$(LWIPDIR)/arch/sys_arch.c
 
 # SNMPFILES: SNMPv2c agent
 SNMPFILES=$(LWIPDIR)/apps/snmp/snmp_asn1.c \

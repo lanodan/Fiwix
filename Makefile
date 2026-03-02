@@ -61,7 +61,8 @@ OBJS = 	kernel/*.o \
 	drivers/pci/*.o \
 	drivers/video/*.o \
 	net/*.o \
-	lib/*.o
+	lib/*.o \
+	net/lwip/src/liblwip.a
 
 export CC LD CFLAGS LDFLAGS INCLUDE
 
