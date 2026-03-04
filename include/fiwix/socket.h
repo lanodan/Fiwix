@@ -36,11 +36,16 @@
 #define SS_DISCONNECTING	4
 
 /* flags */
-#define SO_ACCEPTCONN		0x10000
+#define SO_TYPE			3
+#define SO_ERROR		4
+#define SO_NO_CHECK		11
+#define SO_BINDTODEVICE		25
+#define SO_ACCEPTCONN		30
 
 /* flags for send() and recv() */
 #define MSG_PEEK		0x02
 #define MSG_DONTWAIT		0x40
+#define MSG_MORE		0x8000
 
 typedef unsigned short int sa_family_t;
 
