@@ -62,7 +62,9 @@
 #include <stdarg.h>
 #endif
 
-#include <string.h>
+#include <fiwix/string.h>
+
+int errno;
 
 #ifdef LWIP_HOOK_FILENAME
 #include LWIP_HOOK_FILENAME

@@ -84,7 +84,7 @@
 #include "lwip/inet_chksum.h"
 #endif
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #define SIZEOF_STRUCT_PBUF        LWIP_MEM_ALIGN_SIZE(sizeof(struct pbuf))
 /* Since the pool is created in memp, PBUF_POOL_BUFSIZE will be automatically

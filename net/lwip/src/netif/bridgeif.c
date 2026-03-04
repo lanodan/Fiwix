@@ -86,7 +86,7 @@
 #include "lwip/ethip6.h"
 #include "lwip/snmp.h"
 #include "lwip/timeouts.h"
-#include <string.h>
+#include <fiwix/string.h>
 
 #if LWIP_NUM_NETIF_CLIENT_DATA
 

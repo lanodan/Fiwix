@@ -49,7 +49,7 @@
 #include "lwip/def.h"
 #include "lwip/stats.h"
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #ifdef LWIP_HOOK_FILENAME
 #include LWIP_HOOK_FILENAME

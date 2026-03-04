@@ -47,8 +47,7 @@
 #include "lwip/api.h"
 #include "lwip/dns.h"
 
-#include <string.h> /* memset */
-#include <stdlib.h> /* atoi */
+#include <fiwix/string.h> /* memset and atoi */
 
 /** helper struct for gethostbyname_r to access the char* buffer */
 struct gethostbyname_r_helper {

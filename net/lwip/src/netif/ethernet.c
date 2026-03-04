@@ -49,7 +49,7 @@
 #include "lwip/ip.h"
 #include "lwip/snmp.h"
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #include "netif/ppp/ppp_opts.h"
 #if PPPOE_SUPPORT

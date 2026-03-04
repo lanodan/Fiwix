@@ -73,7 +73,7 @@
 #include LWIP_HOOK_FILENAME
 #endif
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #define API_MSG_VAR_REF(name)               API_VAR_REF(name)
 #define API_MSG_VAR_DECLARE(name)           API_VAR_DECLARE(struct api_msg, name)

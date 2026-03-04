@@ -81,7 +81,7 @@
 #include "lwip/prot/dhcp.h"
 #include "lwip/prot/iana.h"
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #ifdef LWIP_HOOK_FILENAME
 #include LWIP_HOOK_FILENAME

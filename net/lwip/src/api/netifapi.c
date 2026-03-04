@@ -47,7 +47,7 @@
 #include "lwip/memp.h"
 #include "lwip/priv/tcpip_priv.h"
 
-#include <string.h> /* strncpy */
+#include <fiwix/string.h> /* strncpy */
 
 #define NETIFAPI_VAR_REF(name)      API_VAR_REF(name)
 #define NETIFAPI_VAR_DECLARE(name)  API_VAR_DECLARE(struct netifapi_msg, name)

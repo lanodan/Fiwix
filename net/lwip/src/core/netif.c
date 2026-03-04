@@ -50,8 +50,7 @@
 
 #include "lwip/opt.h"
 
-#include <string.h> /* memset */
-#include <stdlib.h> /* atoi */
+#include <fiwix/string.h> /* memset and atoi */
 
 #include "lwip/def.h"
 #include "lwip/ip_addr.h"

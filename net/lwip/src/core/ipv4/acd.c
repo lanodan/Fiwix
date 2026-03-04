@@ -66,7 +66,7 @@
 /* don't build if not configured for use in lwipopts.h */
 #if LWIP_IPV4 && LWIP_ACD
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #include "lwip/acd.h"
 #include "lwip/prot/acd.h"

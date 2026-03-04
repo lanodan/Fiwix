@@ -78,7 +78,7 @@
 #include "lwip/sys.h"
 #endif
 
-#include <string.h>
+#include <fiwix/string.h>
 
 #ifdef LWIP_HOOK_FILENAME
 #include LWIP_HOOK_FILENAME

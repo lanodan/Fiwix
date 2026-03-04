@@ -45,7 +45,7 @@
 #include "lwip/sys.h"
 #include "lwip/mem.h"
 #include "lwip/timeouts.h"
-#include <string.h>
+#include <fiwix/string.h>
 
 #define BRIDGEIF_AGE_TIMER_MS 1000
 
