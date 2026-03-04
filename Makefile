@@ -6,6 +6,7 @@
 
 TOPDIR := $(shell if [ "$$PWD" != "" ] ; then echo $$PWD ; else pwd ; fi)
 INCLUDE = $(TOPDIR)/include
+FIWIX_INCLUDE = $(TOPDIR)/include/fiwix
 TMPFILE := $(shell mktemp)
 
 ARCH = -m32
@@ -64,7 +65,7 @@ OBJS = 	kernel/*.o \
 	lib/*.o \
 	net/lwip/liblwip.a
 
-export CC LD CFLAGS LDFLAGS INCLUDE
+export CC LD CFLAGS LDFLAGS INCLUDE FIWIX_INCLUDE
 
 all:
 	@echo "#define UTS_VERSION \"`date -u`\"" > include/fiwix/version.h

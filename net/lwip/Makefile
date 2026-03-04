@@ -2,7 +2,7 @@ LWIPDIR = .
 include Filelists.mk
 
 .c.o:
-	$(CC) $(CFLAGS) -Iinclude -c -o $@ $<
+	$(CC) $(CFLAGS) -I$(FIWIX_INCLUDE) -Iinclude -c -o $@ $<
 
 OBJS = $(LWIPNOAPPSFILES:.c=.o)
 
