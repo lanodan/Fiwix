@@ -54,7 +54,7 @@ int kswapd(void)
 	ata_init();
 
 	/* starting system */
-	mem_stats();
+	mm_stats();
 	fs_init();
 	mount_root();
 	init_init();
