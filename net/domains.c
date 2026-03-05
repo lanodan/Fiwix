@@ -92,7 +92,7 @@ void net_init(void)
 		d++;
 	}
 
-	/* call to the external TCP/IP API */
-	ext_init();
+	/* initialize the external TCP/IP API (lwIP) */
+	tcpip_init(NULL, NULL);
 }
 #endif /* CONFIG_NET */
