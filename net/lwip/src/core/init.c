@@ -355,7 +355,7 @@ lwip_init(void)
 #if !NO_SYS
   sys_init();
 #endif /* !NO_SYS */
-  mem_init();
+  lwip_mem_init();
   memp_init();
   pbuf_init();
   netif_init();
