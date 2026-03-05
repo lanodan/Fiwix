@@ -38,7 +38,7 @@ struct socket {
 	short int state;
 	int flags;
 	struct fd *fd;
-	int fd_ext;			/* fd of external TCP/IP API */
+	int fd_lwip;			/* fd of external TCP/IP API (lwIP) */
 	short int type;
 	struct proto_ops *ops;
 	int queue_len;			/* number of connections in queue */

@@ -61,17 +61,16 @@ int ipv4_create(struct socket *s, int domain, int type, int protocol)
 	int fd;
 	struct ipv4_info *ip4;
 
-	if((fd = ext_open(domain, type, protocol)) < 0) {
+	if((fd = lwip_socket(domain, type, protocol)) < 0) {
 		return fd;
 	}
-	s->fd_ext = fd;
-
+	s->fd_lwip = fd;
 	ip4 = &s->u.ipv4_info;
 	memset_b(ip4, 0, sizeof(struct ipv4_info));
 	ip4->count = 1;
 	ip4->socket = s;
 	add_ipv4_socket(ip4);
-	return fd;
+	return 0;
 }
 
 void ipv4_free(struct socket *s)
@@ -79,10 +78,10 @@ void ipv4_free(struct socket *s)
 	int errno;
 	struct ipv4_info *ip4;
 
-	if((errno = ext_close(s->fd_ext)) < 0) {
+	if((errno = lwip_close(s->fd_lwip)) < 0) {
 		return errno;
 	}
-	s->fd_ext = 0;
+	s->fd_lwip = 0;
 	ip4 = &s->u.ipv4_info;
 	remove_ipv4_socket(ip4);
 	return errno;
@@ -90,17 +89,17 @@ void ipv4_free(struct socket *s)
 
 int ipv4_bind(struct socket *s, const struct sockaddr *addr, int addrlen)
 {
-	return ext_bind(s->fd_ext, addr, addrlen);
+	return lwip_bind(s->fd_lwip, addr, addrlen);
 }
 
 int ipv4_listen(struct socket *s, int backlog)
 {
-	return ext_listen(s->fd_ext, backlog);
+	return lwip_listen(s->fd_lwip, backlog);
 }
 
 int ipv4_connect(struct socket *s, const struct sockaddr *addr, int addrlen)
 {
-	return ext_connect(s->fd_ext, addr, addrlen);
+	return lwip_connect(s->fd_lwip, addr, addrlen);
 }
 
 int ipv4_accept(struct socket *s, struct sockaddr *addr, unsigned int *addrlen)
@@ -109,7 +108,7 @@ int ipv4_accept(struct socket *s, struct sockaddr *addr, unsigned int *addrlen)
 	struct socket *sc;
 	struct ipv4_info *ip4;
 
-	if((fd = ext_accept(s->fd_ext, addr, addrlen)) < 0) {
+	if((fd = lwip_accept(s->fd_lwip, addr, addrlen)) < 0) {
 		return fd;
 	}
 
@@ -119,7 +118,7 @@ int ipv4_accept(struct socket *s, struct sockaddr *addr, unsigned int *addrlen)
 	}
 	sc->type = s->type;
 	sc->ops = s->ops;
-	sc->fd_ext = fd;
+	sc->fd_lwip = fd;
 
 	ip4 = &s->u.ipv4_info;
 	memset_b(ip4, 0, sizeof(struct ipv4_info));
@@ -157,29 +156,29 @@ int ipv4_recv(struct socket *s, struct fd *f, char *buffer, __size_t count, int 
 
 int ipv4_sendto(struct socket *s, struct fd *f, const char *buffer, __size_t count, int flags, const struct sockaddr *addr, int addrlen)
 {
-	return ext_sendto(s->fd_ext, buffer, count, addr, addrlen);
+	return lwip_sendto(s->fd_lwip, buffer, count, flags, addr, addrlen);
 }
 
 int ipv4_recvfrom(struct socket *s, struct fd *f, char *buffer, __size_t count, int flags, struct sockaddr *addr, int *addrlen)
 {
-	return ext_recvfrom(s->fd_ext, buffer, count, addr, addrlen);
+	return lwip_recvfrom(s->fd_lwip, buffer, count, flags, addr, addrlen);
 }
 
 int ipv4_read(struct socket *s, struct fd *f, char *buffer, __size_t count)
 {
-	return ext_read(s->fd_ext, buffer, count);
+	return lwip_read(s->fd_lwip, buffer, count);
 }
 
 int ipv4_write(struct socket *s, struct fd *f, const char *buffer, __size_t count)
 {
-	return ext_write(s->fd_ext, buffer, count);
+	return lwip_write(s->fd_lwip, buffer, count);
 }
 
 int ipv4_ioctl(struct socket *s, struct fd *f, int cmd, unsigned int arg)
 {
 	int errno;
 
-	if((errno = ext_ioctl(s->fd_ext, cmd, (void *)arg)) < 0) {
+	if((errno = lwip_ioctl(s->fd_lwip, cmd, (void *)arg)) < 0) {
 		switch(cmd) {
 			default:
 				errno = dev_ioctl(cmd, (void *)arg);
