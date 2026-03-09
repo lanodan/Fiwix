@@ -162,10 +162,6 @@ int socket(int domain, int type, int protocol)
 	printk("(pid %d) socket(%d, %d, %d)\n", current->pid, domain, type, protocol);
 #endif /*__DEBUG__ */
 
-	if(type != SOCK_STREAM && type != SOCK_DGRAM) {
-		return -EINVAL;
-	}
-
 	s = NULL;
 	if((ufd = sock_alloc(&s)) < 0) {
 		return ufd;
