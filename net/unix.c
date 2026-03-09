@@ -79,6 +79,9 @@ int unix_create(struct socket *s, int domain, int type, int protocol)
 {
 	struct unix_info *u;
 
+	if(type != SOCK_STREAM && type != SOCK_DGRAM) {
+		return -EINVAL;
+	}
 	u = &s->u.unix_info;
 	memset_b(u, 0, sizeof(struct unix_info));
 	u->count = 1;
