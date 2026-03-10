@@ -118,6 +118,7 @@ struct proc {
 	__time_t start_time;
 	int exit_code;	
 	void *sleep_address;
+	int errno;			/* for lwIP */
 	unsigned short int uid;		/* real user ID */
 	unsigned short int gid;		/* real group ID */
 	unsigned short int euid;	/* effective user ID */

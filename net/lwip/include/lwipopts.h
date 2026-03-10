@@ -39,6 +39,11 @@
 #define FLAGS_FOR_SEND_RECV_DEFINED 1
 #define LWIP_TIMEVAL_PRIVATE 0
 
+/* avoids touching net/lwip/include/lwip/sockets.h */
+#define LWIP_SOCKET_EXTERNAL_HEADERS 1
+#define LWIP_SOCKET_EXTERNAL_HEADER_SOCKETS_H <fiwix/socket.h>
+#define LWIP_SOCKET_EXTERNAL_HEADER_INET_H <fiwix/in.h>
+
 
 /* have a loopback interface */
 /*
