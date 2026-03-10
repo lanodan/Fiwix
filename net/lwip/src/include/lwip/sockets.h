@@ -60,7 +60,7 @@ extern "C" {
 #endif
 
 /* sockaddr and pals include length fields */
-#define LWIP_SOCKET_HAVE_SA_LEN  1
+#define LWIP_SOCKET_HAVE_SA_LEN  0	/* was originally set as 1 */
 
 /* If your port already typedef's sa_family_t, define SA_FAMILY_T_DEFINED
    to prevent this code from redefining it. */
@@ -96,11 +96,13 @@ struct sockaddr_in6 {
 };
 #endif /* LWIP_IPV6 */
 
+#if !defined(STRUCT_SOCKADDR_DEFINED)
 struct sockaddr {
   u8_t        sa_len;
   sa_family_t sa_family;
   char        sa_data[14];
 };
+#endif
 
 struct sockaddr_storage {
   u8_t        s2_len;
@@ -124,7 +126,7 @@ typedef u32_t socklen_t;
 #error "IOV_MAX larger than supported by LwIP"
 #endif /* IOV_MAX */
 
-#if !defined(iovec)
+#if !defined(iovec) && !defined(STRUCT_IOVEC_DEFINED)
 struct iovec {
   void  *iov_base;
   size_t iov_len;
@@ -209,6 +211,7 @@ struct ifreq {
 /*
  * Additional options, not kept in so_options.
  */
+#if !defined(ADDITIONAL_SO_OPTIONS_DEFINED)
 #define SO_DEBUG        0x0001 /* Unimplemented: turn on debugging info recording */
 #define SO_ACCEPTCONN   0x0002 /* socket has had listen() */
 #define SO_DONTROUTE    0x0010 /* Unimplemented: just use interface addresses */
@@ -228,6 +231,7 @@ struct ifreq {
 #define SO_CONTIMEO     0x1009 /* Unimplemented: connect timeout */
 #define SO_NO_CHECK     0x100a /* don't create UDP checksum */
 #define SO_BINDTODEVICE 0x100b /* bind to device */
+#endif
 
 /*
  * Structure used for manipulating linger option.
@@ -265,6 +269,7 @@ struct linger {
 #define IPPROTO_UDPLITE 136
 #define IPPROTO_RAW     255
 
+#if !defined(FLAGS_FOR_SEND_RECV_DEFINED)
 /* Flags we can use with send and recv. */
 #define MSG_PEEK       0x01    /* Peeks at an incoming message */
 #define MSG_WAITALL    0x02    /* Unimplemented: Requests that the function block until the full amount of data requested can be returned */
@@ -272,6 +277,7 @@ struct linger {
 #define MSG_DONTWAIT   0x08    /* Nonblocking i/o for this operation only */
 #define MSG_MORE       0x10    /* Sender will send more */
 #define MSG_NOSIGNAL   0x20    /* Uninmplemented: Requests not to send the SIGPIPE signal if an attempt to send is made on a stream-oriented socket that is no longer connected. */
+#endif
 
 
 /*
