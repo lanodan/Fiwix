@@ -60,7 +60,7 @@
 #include "lwip/ip6_addr.h"
 #include "lwip/inet_chksum.h"
 
-#include <string.h>
+#include <fiwix/string.h>
 
 /** The list of RAW PCBs */
 static struct raw_pcb *raw_pcbs;
