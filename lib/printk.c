@@ -104,6 +104,7 @@ static void puts(char *buffer, int msg_level)
  *	%o	octal conversion
  *	%c	character
  *	%s	string
+ *	%p	pointer (printed in hexadecimal as %x)
  *
  * length modifiers (e.g: %ld or %lu)
  * --------------------------------------------------------
@@ -279,6 +280,7 @@ static int do_printk(char *buffer, const char *format, va_list args)
 					break;
 
 				case 'x':
+				case 'p':
 					basecase = 'a';
 				case 'X':
 					unum = va_arg(args, unsigned int);
