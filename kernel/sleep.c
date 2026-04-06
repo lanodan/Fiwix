@@ -213,29 +213,38 @@ void lock_resource(struct resource *resource)
 int lock_resource_timeout(struct resource *resource, unsigned int timeout)
 {
 	unsigned int flags;
+	int signum;
 
 	current->timeout = timeout;
 	for(;;) {
 		SAVE_FLAGS(flags); CLI();
-		if(resource->locked && current->timeout != 0) { /* locked, not timed out */
-			resource->wanted = 1;
-			RESTORE_FLAGS(flags);
-			sleep(resource, PROC_UNINTERRUPTIBLE);
-		} else if(current->timeout == 0) { /* timed out */
-			resource->wanted = 0;
-			/* ensure wanted is set back to 1 if anything else is waiting for it */
-			wakeup(resource);
-			RESTORE_FLAGS(flags);
-			/* failed to acquire the lock in the timeout */
-			return 1;
-		} else { /* not locked, not timed out */
-			/* able to go forth and acquire the lock */
+		if(resource->locked) {
+			if(current->timeout > 0) {
+				resource->wanted = 1;
+				RESTORE_FLAGS(flags);
+				signum = sleep(resource, PROC_INTERRUPTIBLE);
+				if(signum) {
+					printk("signum = %d\n", signum);
+					resource->wanted = 0;
+					wakeup(resource);
+					RESTORE_FLAGS(flags);
+					return 1;	/* FIXME: a different value? */
+				}
+			} else {
+				resource->wanted = 0;
+				/* ensure wanted is set back to 1 if anything else is waiting for it */
+				wakeup(resource);
+				RESTORE_FLAGS(flags);
+				/* failed to acquire the lock in the timeout */
+				return 1;
+			}
+		} else {
+			current->timeout = 0;
 			break;
 		}
 	}
 	resource->locked = 1;
 	RESTORE_FLAGS(flags);
-
 	return 0;
 }
 
