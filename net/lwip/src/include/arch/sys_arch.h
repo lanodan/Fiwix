@@ -16,14 +16,9 @@ struct mail {
 };
 
 typedef struct mailbox {
-	struct mail *head;
-	struct mail *tail;
+	struct mail *queue;
 	int length;
 	int max_length;
- 	/* The number of resources in or waiting to be in */
- 	int intended_length;
- 	/* Held briefly if there is an intention to add */
- 	struct resource intention_lock;
 	struct resource lock;
 	struct resource full;
 	struct resource empty;
