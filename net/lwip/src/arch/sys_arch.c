@@ -33,8 +33,15 @@ u32_t sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout)
 {
 	int retval;
 
-	timeout = MS_TO_TICKS(timeout);
-	if((retval = lock_resource_timeout(&sem->sem, timeout ? timeout : INFINITE_WAIT))) {
+	if(timeout) {
+		timeout = MS_TO_TICKS(timeout);
+		if(timeout < 1) {
+			timeout = 1;
+		}
+	} else {
+		timeout = INFINITE_WAIT;
+	}
+	if((retval = lock_resource_timeout(&sem->sem, timeout))) {
 		return SYS_ARCH_TIMEOUT;
 	}
 	return 0;
@@ -117,8 +124,15 @@ u32_t sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout)
 {
 	int retval;
 
-	timeout = MS_TO_TICKS(timeout);
-	if((retval = lock_resource_timeout(&mbox->empty, timeout ? timeout : INFINITE_WAIT))) {
+	if(timeout) {
+		timeout = MS_TO_TICKS(timeout);
+		if(timeout < 1) {
+			timeout = 1;
+		}
+	} else {
+		timeout = INFINITE_WAIT;
+	}
+	if((retval = lock_resource_timeout(&mbox->empty, timeout))) {
 		return SYS_ARCH_TIMEOUT;
 	}
 
