@@ -10,6 +10,8 @@
 #define MS_TO_TICKS(ms)		((ms) * HZ / 1000)
 #define TICKS_TO_MS(ticks)	((ticks) * 1000 / HZ)
 
+static struct resource protect_lk;
+
 /* SEMAPHORES */
 
 err_t sys_sem_new(sys_sem_t *sem, u8_t count)
@@ -252,8 +254,6 @@ u32_t sys_now(void)
 }
 
 /* CRITICAL SECTIONS */
-
-struct resource protect_lk;
 
 int sys_arch_protect(void)
 {

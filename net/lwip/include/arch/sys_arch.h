@@ -28,6 +28,5 @@ typedef struct mailbox {
 typedef struct proc *sys_thread_t;
 
 typedef int sys_prot_t; /* not actually used */
-extern struct resource protect_lk;
 
 #endif
