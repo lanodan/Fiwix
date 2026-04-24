@@ -28,6 +28,8 @@
 #define O_NDELAY	O_NONBLOCK
 #define O_SYNC		 010000
 
+#define O_PATH		010000000
+
 #define F_DUPFD		0	/* duplicate file descriptor */
 #define F_GETFD		1	/* get file descriptor flags */
 #define F_SETFD		2	/* set file descriptor flags */
@@ -59,6 +61,9 @@
 #define LOCK_NB		4	/* or'd with one of the above to prevent
 				   blocking */
 #define LOCK_UN		8	/* unlock */
+
+#define AT_REMOVEDIR	0x200	/* allow unlinkat() to remove directories */
+#define AT_FDCWD	-100	/* special fd value for unlinkat() et al. for the CWD */
 
 /* IEEE Std 1003.1, 2004 Edition */
 struct flock {

@@ -183,5 +183,6 @@ int sys_chown32(const char *, unsigned int, unsigned int);
 int sys_getdents64(unsigned int, struct dirent64 *, unsigned int);
 int sys_fcntl64(unsigned int, int, unsigned int);
 int sys_utimes(const char *, struct timeval times[2]);
+int sys_unlinkat(unsigned int, const char *, int);
 
 #endif /* _FIWIX_SYSCALLS_H */

@@ -223,4 +223,7 @@
 
 #define SYS_utimes		271
 
+/* extra system calls from Linux 2.6 */
+#define SYS_unlinkat	301
+
 #endif /* _FIWIX_UNISTD_H */
