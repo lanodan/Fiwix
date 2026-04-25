@@ -224,11 +224,10 @@ int lock_resource_timeout(struct resource *resource, unsigned int timeout)
 				RESTORE_FLAGS(flags);
 				signum = sleep(resource, PROC_INTERRUPTIBLE);
 				if(signum) {
-					printk("signum = %d\n", signum);
 					resource->wanted = 0;
 					wakeup(resource);
 					RESTORE_FLAGS(flags);
-					return 1;	/* FIXME: a different value? */
+					return 2;
 				}
 			} else {
 				resource->wanted = 0;

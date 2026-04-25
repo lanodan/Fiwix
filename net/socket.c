@@ -423,6 +423,10 @@ int recvfrom(int sd, void *buf, __size_t len, int flags, struct sockaddr *addr, 
 	fdt.flags = s->fd->flags | ((flags & MSG_DONTWAIT) ? O_NONBLOCK : 0);
 	memset_b(ret_addr, 0, 108);
 	if((errno = s->ops->recvfrom(s, &fdt, buf, len, flags, (struct sockaddr *)ret_addr, &ret_len)) < 0) {
+		if(current->flags & PF_LWIPINTR) {
+			current->flags &= ~PF_LWIPINTR;
+			errno = -EINTR;
+		}
 		return errno;
 	}
 	bytes_read = errno;
