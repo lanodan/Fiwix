@@ -41,6 +41,7 @@ struct vma {
 #define PF_PEXEC	0x00000002	/* has performed a sys_execve() */
 #define PF_USEREAL	0x00000004	/* use real UID in permission checks */
 #define PF_NOTINTERRUPT	0x00000008	/* non-interruptible sleeping */
+#define PF_LWIPINTR	0x00000010	/* simulates SYS_ARCH_INTR in lwIP */
 
 #define MMAP_START	0x40000000	/* mmap()s start at 1GB */
 #define IS_SUPERUSER	(current->euid == 0)

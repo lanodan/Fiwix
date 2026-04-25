@@ -1,3 +1,6 @@
+#ifndef _LWIP_LWIPOPTS_H
+#define _LWIP_LWIPOPTS_H
+
 #include <fiwix/mm.h>
 
 #undef NO_SYS
@@ -22,8 +25,10 @@
 #define DEFAULT_ACCEPTMBOX_SIZE 10
 
 /* Enable parts of lwIP */
-#define LWIP_ARP 1
+#define TCPIP_THREAD_NAME "lwip"
 #define LWIP_ETHERNET 1
+#define LWIP_SOCKET 1
+#define LWIP_ARP 1
 #define LWIP_IPV4 1
 #define IP_FORWARD 1
 #define LWIP_ICMP 1
@@ -32,10 +37,15 @@
 #define LWIP_UDP 1
 #define LWIP_TCP 1
 #define LWIP_NETIF_API 1
-#define LWIP_SOCKET 1
 #define LWIP_IPV6 0
 #define LWIP_IPV6_DHCP6 0
 #define LWIP_RAW 1
+
+#define LWIP_SO_SNDTIMEO 1
+#define LWIP_SO_RCVTIMEO 1
+
+#define MEM_ALIGNMENT 4
+#define MEMP_NUM_NETBUF 128
 
 /* debug */
 /*
@@ -92,9 +102,12 @@
  * At some point, this should be removed or interfaced with the kernel
  * network API.
  */
+#define LWIP_HAVE_LOOPIF 1
 #define LWIP_NETIF_LOOPBACK 1
 
 
 /* Fiwix does not provide a mutex datastructure. */
 #define LWIP_COMPAT_MUTEX 1
 #define LWIP_COMPAT_MUTEX_ALLOWED 1
+
+#endif /* _LWIP_LWIPOPTS_H */

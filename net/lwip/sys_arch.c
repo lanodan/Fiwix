@@ -16,8 +16,11 @@ static struct resource protect_lk;
 
 err_t sys_sem_new(sys_sem_t *sem, u8_t count)
 {
+	if(current->pid == 2) {
+		return ERR_OK;
+	}
 	memset_b(sem, 0, sizeof(struct semaphore));
-/*	sem->sem.locked = count;*/
+	sem->sem.locked = count;
 	sem->valid = 1;
 	return ERR_OK;
 }
@@ -44,6 +47,9 @@ u32_t sys_arch_sem_wait(sys_sem_t *sem, u32_t timeout)
 		timeout = INFINITE_WAIT;
 	}
 	if((retval = lock_resource_timeout(&sem->sem, timeout))) {
+		if(retval != 1) {
+			current->flags |= PF_LWIPINTR;
+		}
 		return SYS_ARCH_TIMEOUT;
 	}
 	return 0;
@@ -135,6 +141,9 @@ u32_t sys_arch_mbox_fetch(sys_mbox_t *mbox, void **msg, u32_t timeout)
 		timeout = INFINITE_WAIT;
 	}
 	if((retval = lock_resource_timeout(&mbox->empty, timeout))) {
+		if(retval != 1) {
+			current->flags |= PF_LWIPINTR;
+		}
 		return SYS_ARCH_TIMEOUT;
 	}
 

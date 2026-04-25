@@ -47,6 +47,8 @@
 #define SO_BROADCAST		6
 #define SO_KEEPALIVE		9
 #define SO_NO_CHECK		11
+#define SO_RCVTIMEO		20
+#define SO_SNDTIMEO		21
 #define SO_BINDTODEVICE		25
 #define SO_ACCEPTCONN		30
 
