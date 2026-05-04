@@ -8,6 +8,7 @@ TOPDIR := $(shell if [ "$$PWD" != "" ] ; then echo $$PWD ; else pwd ; fi)
 INCLUDE = $(TOPDIR)/include
 FIWIX_INCLUDE = $(TOPDIR)/include/fiwix
 TMPFILE := $(shell mktemp)
+LWIP_STABLE_RELEASE := $(TOPDIR)/lwip-STABLE-2_2_1_RELEASE.tar.gz
 
 ARCH = -m32
 CPU = -march=i386
@@ -65,7 +66,7 @@ OBJS = 	kernel/*.o \
 	lib/*.o \
 	net/lwip/liblwip.a
 
-export CC LD CFLAGS LDFLAGS INCLUDE FIWIX_INCLUDE
+export CC LD CFLAGS LDFLAGS INCLUDE FIWIX_INCLUDE LWIP_STABLE_RELEASE
 
 all:
 	@echo "#define UTS_VERSION \"`date -u`\"" > include/fiwix/version.h
