@@ -26,9 +26,9 @@
 
 /* Enable parts of lwIP */
 #define TCPIP_THREAD_NAME "lwip"
+#define LWIP_ETHERNET 1
 #define LWIP_SOCKET 1
 #define LWIP_ARP 1
-#define LWIP_ETHERNET 1
 #define LWIP_IPV4 1
 #define IP_FORWARD 1
 #define LWIP_ICMP 1
@@ -44,6 +44,8 @@
 #define LWIP_SO_SNDTIMEO 1
 #define LWIP_SO_RCVTIMEO 1
 
+#define MEM_ALIGNMENT 4
+#define MEMP_NUM_NETBUF 128
 
 /* debug */
 /*

@@ -39,6 +39,8 @@
 #define SO_TYPE			3
 #define SO_ERROR		4
 #define SO_NO_CHECK		11
+#define SO_RCVTIMEO		20
+#define SO_SNDTIMEO		21
 #define SO_BINDTODEVICE		25
 #define SO_ACCEPTCONN		30
 
