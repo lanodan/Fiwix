@@ -26,7 +26,6 @@ typedef struct mailbox {
 } sys_mbox_t;
 
 typedef struct proc *sys_thread_t;
-
 typedef int sys_prot_t; /* not actually used */
 
-#endif
+#endif /* SYS_ARCH_H */
