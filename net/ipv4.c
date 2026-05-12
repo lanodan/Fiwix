@@ -20,9 +20,32 @@
 #include <fiwix/stdio.h>
 
 #ifdef CONFIG_NET
-struct ipv4_info *ipv4_socket_head;
+/* lwIP prototypes */
+int lwip_accept(int, struct sockaddr *, socklen_t *);
+int lwip_bind(int, const struct sockaddr *, socklen_t);
+int lwip_shutdown(int, int);
+int lwip_getpeername (int, struct sockaddr *, socklen_t *);
+int lwip_getsockname (int, struct sockaddr *, socklen_t *);
+int lwip_getsockopt (int, int, int, void *, socklen_t *);
+int lwip_setsockopt (int, int, int, const void *, socklen_t);
+ int lwip_close(int);
+int lwip_connect(int, const struct sockaddr *, socklen_t);
+int lwip_listen(int, int backlog);
+__ssize_t lwip_recv(int, void *, __size_t, int);
+__ssize_t lwip_read(int, void *, __size_t);
+__ssize_t lwip_readv(int, const struct iovec *, int);
+__ssize_t lwip_recvfrom(int, void *, __size_t, int, struct sockaddr *, socklen_t *);
+__ssize_t lwip_recvmsg(int, struct msghdr *, int);
+__ssize_t lwip_send(int, const void *, __size_t, int);
+__ssize_t lwip_sendmsg(int, const struct msghdr *, int);
+__ssize_t lwip_sendto(int, const void *, __size_t, int, const struct sockaddr *, socklen_t);
+int lwip_socket(int, int, int);
+__ssize_t lwip_write(int, const void *, __size_t);
+__ssize_t lwip_writev(int, const struct iovec *, int);
+int lwip_ioctl(int, long, void *);
 
-static struct resource packet_resource = { 0, 0 };
+
+struct ipv4_info *ipv4_socket_head;
 
 static void add_ipv4_socket(struct ipv4_info *ip4)
 {
@@ -159,7 +182,7 @@ int ipv4_sendto(struct socket *s, struct fd *f, const char *buffer, __size_t cou
 	return lwip_sendto(s->fd_lwip, buffer, count, flags, addr, addrlen);
 }
 
-int ipv4_recvfrom(struct socket *s, struct fd *f, char *buffer, __size_t count, int flags, struct sockaddr *addr, int *addrlen)
+int ipv4_recvfrom(struct socket *s, struct fd *f, char *buffer, __size_t count, int flags, struct sockaddr *addr, socklen_t *addrlen)
 {
 	return lwip_recvfrom(s->fd_lwip, buffer, count, flags, addr, addrlen);
 }

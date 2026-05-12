@@ -376,7 +376,7 @@ int unix_sendto(struct socket *s, struct fd *f, const char *buffer, __size_t cou
 	return count;
 }
 
-int unix_recvfrom(struct socket *s, struct fd *f, char *buffer, __size_t count, int flags, struct sockaddr *addr, int *addrlen)
+int unix_recvfrom(struct socket *s, struct fd *f, char *buffer, __size_t count, int flags, struct sockaddr *addr, socklen_t *addrlen)
 {
 	struct unix_info *u, *up;
 	struct sockaddr_un *sun;

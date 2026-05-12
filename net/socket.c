@@ -402,12 +402,13 @@ int sendto(int sd, const void *buf, __size_t len, int flags, const struct sockad
 	return s->ops->sendto(s, &fdt, buf, len, flags, addr, addrlen);
 }
 
-int recvfrom(int sd, void *buf, __size_t len, int flags, struct sockaddr *addr, int *addrlen)
+int recvfrom(int sd, void *buf, __size_t len, int flags, struct sockaddr *addr, socklen_t *addrlen)
 {
 	struct socket *s;
 	struct fd fdt;
+	socklen_t ret_len;
 	char ret_addr[108];
-	int errno, ret_len, bytes_read;
+	int errno, bytes_read;
 
 #ifdef __DEBUG__
 	printk("(pid %d) recvfrom(%d, 0x%08x, %d, %d, 0x%08x, 0x%08x)\n", current->pid, sd, (int)buf, len, flags, (int)addr, addrlen);

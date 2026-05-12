@@ -12,6 +12,9 @@
 #include <fiwix/string.h>
 
 #ifdef CONFIG_NET
+/* lwIP prototype */
+void tcpip_init(void *, void *);
+
 struct domain_table domains[] = {
         { AF_UNIX, "AF_UNIX", &unix_ops },
         { AF_INET, "AF_INET", &ipv4_ops },
